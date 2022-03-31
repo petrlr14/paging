@@ -1,19 +1,23 @@
 import Image from 'next/image';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHeart } from '@fortawesome/free-regular-svg-icons';
-import { faBagShopping } from '@fortawesome/free-solid-svg-icons';
+import {
+  faBagShopping,
+  faBars,
+  faHamburger,
+} from '@fortawesome/free-solid-svg-icons';
 
 export default function Navbar() {
   return (
-    <header className="bg-white sticky top-0 flex flex-col w-full">
-      <div className="flex justify-between w-full py-2 px-10">
-        <div className="w-1/3 flex justify-center">
+    <header className="bg-white sticky top-0 flex flex-col w-full z-10">
+      <div className="flex justify-between w-full py-2 px-4 md:px-10">
+        <div className="hidden w-1/3 md:flex justify-center">
           <input
-            className="border-b p-1 border-primary"
+            className="border-b p-1 focus:ring-2 focus:border-transparent outline-none border-primary ring-primary"
             placeholder="Search..."
           />
         </div>
-        <div className="w-1/3 h- relative">
+        <div className="w-1/2 md:w-1/3 relative">
           <Image
             src="https://www.luxedressing.com/assets/images/icon/logo-luxe.svg"
             alt="luxe dressing"
@@ -21,10 +25,13 @@ export default function Navbar() {
             objectFit="contain"
           />
         </div>
-        <div className="flex justify-center items-center gap-4 w-1/3">
+        <div className="flex justify-end md:justify-center items-center gap-2 md:gap-4 w-1/2 md:w-1/3">
           <span>Log in</span>
           <FontAwesomeIcon icon={faHeart} />
           <FontAwesomeIcon icon={faBagShopping} />
+          <div className="flex md:hidden ">
+            <FontAwesomeIcon icon={faBars} />
+          </div>
         </div>
       </div>
       <nav className="hidden sm:flex border-y border-ghost w-full">
