@@ -10,6 +10,8 @@ interface Props {
   className: (value: number) => string;
   onClick: (value: number) => void;
   pageCount: number;
+  forward: () => void;
+  backward: () => void;
   currentPage: number;
   pageNeighbours?: number;
 }
@@ -18,6 +20,8 @@ export function PagingController({
   pageCount,
   className,
   onClick,
+  backward,
+  forward,
   currentPage,
   pageNeighbours,
 }: Props) {
@@ -52,20 +56,45 @@ export function PagingController({
 
   return (
     <>
-      {getBlocksToRender.map((value, index) => {
-        if (value === EllipseArrow.LEFT || value === EllipseArrow.RIGHT) {
-          return <span key={`${value}-paging-button-${index}`}>...</span>;
-        }
-        return (
-          <button
-            key={`${value}-paging-button-${index}`}
-            className={className(value)}
-            onClick={() => onClick(value)}
-          >
-            {value}
+      <div>
+        <button className="border py-1 px-2" onClick={backward}>
+          {'<'}
+        </button>
+        {currentPage !== 1 && (
+          <button onClick={() => onClick(1)} className="border py-1 px-2">
+            {'<<'}
           </button>
-        );
-      })}
+        )}
+      </div>
+      <div>
+        {getBlocksToRender.map((value, index) => {
+          if (value === EllipseArrow.LEFT || value === EllipseArrow.RIGHT) {
+            return <span key={`${value}-paging-button-${index}`}>...</span>;
+          }
+          return (
+            <button
+              key={`${value}-paging-button-${index}`}
+              className={className(value)}
+              onClick={() => onClick(value)}
+            >
+              {value}
+            </button>
+          );
+        })}
+      </div>
+      <div>
+        {currentPage !== pageCount && (
+          <button
+            onClick={() => onClick(pageCount)}
+            className="border py-1 px-2"
+          >
+            {'>>'}
+          </button>
+        )}
+        <button className="border py-1 px-2" onClick={forward}>
+          {'>'}
+        </button>
+      </div>
     </>
   );
 }
